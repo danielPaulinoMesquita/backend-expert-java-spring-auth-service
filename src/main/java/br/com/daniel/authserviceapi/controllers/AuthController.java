@@ -2,6 +2,7 @@ package br.com.daniel.authserviceapi.controllers;
 
 import br.com.userservice.commonslib.model.exceptions.StandardError;
 import br.com.userservice.commonslib.model.requests.AuthenticateRequest;
+import br.com.userservice.commonslib.model.responses.AuthenticateResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,5 +26,5 @@ public interface AuthController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = StandardError.class)))
     })
     @PostMapping("/login")
-    ResponseEntity<String> authenticate(@Valid @RequestBody final AuthenticateRequest authenticateRequest);
+    ResponseEntity<AuthenticateResponse> authenticate(@Valid @RequestBody final AuthenticateRequest authenticateRequest);
 }
