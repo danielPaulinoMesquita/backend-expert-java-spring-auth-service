@@ -1,3 +1,7 @@
 spring:
   application:
     name: 'auth-service-api'
+
+
+jwt.secret: 'ZnXUV@^E5g6ozyNFm&Q7uJYaHHjJQF#&AvZAua99c@JGHAk4e9LcKcwuEq^W7gbV'
+jwt.expiration: 120000
