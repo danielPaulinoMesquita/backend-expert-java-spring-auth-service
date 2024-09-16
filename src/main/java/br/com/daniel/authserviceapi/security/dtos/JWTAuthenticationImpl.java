@@ -23,7 +23,7 @@ public class JWTAuthenticationImpl {
                     new UsernamePasswordAuthenticationToken(request.email(), request.password()));
             return buildAuthenticateResponse((UserDetailsDTO) authResult.getPrincipal());
         } catch (BadCredentialsException e) {
-            log.error("Error on authenticate user: {}", e.getMessage());
+            log.error("Error on authenticate user: {}", request.email());
             throw new BadCredentialsException(e.getMessage());
         }
     }
@@ -32,8 +32,8 @@ public class JWTAuthenticationImpl {
         log.info("Successfully authenticated response: {}", detailsDTO.getName());
         final var token = jwtUtils.generateToken(detailsDTO);
         return AuthenticateResponse.builder()
-                .type("Bearer")
-                .token(token)
+                .type("JWT")
+                .token("Bearer " + token)
                 .build();
     }
 }

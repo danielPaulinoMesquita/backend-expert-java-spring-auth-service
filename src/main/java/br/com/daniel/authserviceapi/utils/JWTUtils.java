@@ -6,7 +6,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
@@ -25,7 +24,7 @@ public class JWTUtils {
                 .claim("authorities", detailsDTO.getAuthorities())
                 .setSubject(detailsDTO.getUsername())
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(expiration)))
                 .compact();
     }
 }

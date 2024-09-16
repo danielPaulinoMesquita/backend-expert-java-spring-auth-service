@@ -5,6 +5,7 @@ import br.com.userservice.commonslib.model.exceptions.ValidationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -59,6 +60,21 @@ public class ControllerExceptionHandler {
                         .timestamp(LocalDateTime.now())
                         .status(CONFLICT.value())
                         .error(CONFLICT.getReasonPhrase())
+                        .message(ex.getMessage())
+                        .path(request.getRequestURI())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    ResponseEntity<StandardError> handlerNotFoundException(
+            final BadCredentialsException ex, final HttpServletRequest request
+    ){
+        return ResponseEntity.status(UNAUTHORIZED).body(
+                StandardError.builder()
+                        .timestamp(LocalDateTime.now())
+                        .status(UNAUTHORIZED.value())
+                        .error(UNAUTHORIZED.getReasonPhrase())
                         .message(ex.getMessage())
                         .path(request.getRequestURI())
                         .build()

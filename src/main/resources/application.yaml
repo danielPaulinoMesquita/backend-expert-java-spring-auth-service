@@ -1,7 +1,9 @@
 spring:
   application:
     name: 'auth-service-api'
-
+  data:
+    mongodb:
+      uri: 'mongodb://root:root@localhost:27017/helpdesk?authSource=admin'
 
 jwt.secret: 'ZnXUV@^E5g6ozyNFm&Q7uJYaHHjJQF#&AvZAua99c@JGHAk4e9LcKcwuEq^W7gbV'
-jwt.expiration: 120000
+jwt.expiration: '120000'

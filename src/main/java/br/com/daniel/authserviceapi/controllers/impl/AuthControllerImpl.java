@@ -1,7 +1,6 @@
 package br.com.daniel.authserviceapi.controllers.impl;
 
 import br.com.daniel.authserviceapi.controllers.AuthController;
-import br.com.daniel.authserviceapi.repositories.UserRepository;
 import br.com.daniel.authserviceapi.security.dtos.JWTAuthenticationImpl;
 import br.com.daniel.authserviceapi.utils.JWTUtils;
 import br.com.userservice.commonslib.model.requests.AuthenticateRequest;
