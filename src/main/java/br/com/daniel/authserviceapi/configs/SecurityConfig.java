@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    public static final String[] PUBLIC_URLS = {"/swagger-ui/**", "/v3/api-docs/**", "/api/auth/login/**"};
+    public static final String[] PUBLIC_URLS = {"/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

@@ -2,7 +2,10 @@ package br.com.daniel.authserviceapi.controllers;
 
 import br.com.userservice.commonslib.model.exceptions.StandardError;
 import br.com.userservice.commonslib.model.requests.AuthenticateRequest;
+import br.com.userservice.commonslib.model.requests.RefreshTokenRequest;
 import br.com.userservice.commonslib.model.responses.AuthenticateResponse;
+import br.com.userservice.commonslib.model.responses.RefreshTokenResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,4 +30,15 @@ public interface AuthController {
     })
     @PostMapping("/login")
     ResponseEntity<AuthenticateResponse> authenticate(@Valid @RequestBody final AuthenticateRequest authenticateRequest) throws Exception;
+
+    @Operation(summary = "Refresh token")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Token refreshed"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = StandardError.class))),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = StandardError.class))),
+            @ApiResponse(responseCode = "404", description = "Username not found", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = StandardError.class))),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = StandardError.class)))
+    })
+    @PostMapping("/refresh-token")
+    ResponseEntity<RefreshTokenResponse> refreshToken(@Valid @RequestBody final RefreshTokenRequest Request);
 }

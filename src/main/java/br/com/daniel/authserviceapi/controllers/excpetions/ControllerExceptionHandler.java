@@ -1,5 +1,6 @@
 package br.com.daniel.authserviceapi.controllers.excpetions;
 
+import br.com.userservice.commonslib.model.exceptions.RefreshTokenExpired;
 import br.com.userservice.commonslib.model.exceptions.StandardError;
 import br.com.userservice.commonslib.model.exceptions.ValidationException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +35,7 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    ResponseEntity<StandardError> handlerNotFoundException(final MethodArgumentNotValidException ex, final HttpServletRequest request){
+    ResponseEntity<StandardError> handlerBadRequestException(final MethodArgumentNotValidException ex, final HttpServletRequest request){
         var error = ValidationException.builder()
                 .timestamp(LocalDateTime.now())
                 .status(BAD_REQUEST.value())
@@ -52,7 +53,7 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    ResponseEntity<StandardError> handlerNotFoundException(
+    ResponseEntity<StandardError> handlerDataIntegrityViolationException(
             final DataIntegrityViolationException ex, final HttpServletRequest request
     ){
         return ResponseEntity.status(CONFLICT).body(
@@ -66,9 +67,9 @@ public class ControllerExceptionHandler {
         );
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
-    ResponseEntity<StandardError> handlerNotFoundException(
-            final BadCredentialsException ex, final HttpServletRequest request
+    @ExceptionHandler({BadCredentialsException.class, RefreshTokenExpired.class})
+    ResponseEntity<StandardError> handlerBadCredentialsException(
+            final RuntimeException ex, final HttpServletRequest request
     ){
         return ResponseEntity.status(UNAUTHORIZED).body(
                 StandardError.builder()
@@ -80,4 +81,5 @@ public class ControllerExceptionHandler {
                         .build()
         );
     }
+
 }
