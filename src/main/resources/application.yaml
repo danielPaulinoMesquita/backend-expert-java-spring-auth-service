@@ -3,4 +3,6 @@ spring:
     name: 'auth-service-api'
   cloud:
     config:
-      name: 'auth-service-api'
+      uri: ${CONFIG_SERVER_URI}
+  profiles:
+    active: ${PROFILE}
